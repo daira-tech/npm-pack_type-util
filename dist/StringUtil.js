@@ -9,6 +9,46 @@ class StringUtil {
         const randomHex = (0, crypto_1.randomBytes)(8).toString('hex');
         return `${timeHex.slice(0, 8)}-${timeHex.slice(8, 12)}-7${timeHex.slice(13, 16)}-${randomHex.slice(0, 4)}-${randomHex.slice(4)}`;
     }
+    static generateRandom(length, option) {
+        var _a;
+        let characters = '';
+        if (option.isSetNumber === true) {
+            characters += '0123456789';
+        }
+        if (option.isSetLowerAlphabet === true) {
+            characters += 'abcdefghijklmnopqrstuvwxyz';
+        }
+        if (option.isSetUpperAlphabet === true) {
+            characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
+        if (option.isSetSymbol === true) {
+            characters += '!@$%^&*?-_+=';
+        }
+        if (option.isExcludeSimilerChar === true) {
+            const excludeChars = ['0', '1', 'o', 'O', 'i', 'I', 'l', 'L'];
+            for (const c of excludeChars) {
+                characters = characters.replace(c, '');
+            }
+        }
+        let str = '';
+        const maxAttempts = (_a = option.maxAttenpts) !== null && _a !== void 0 ? _a : 10000;
+        let attempts = 0;
+        while (attempts < maxAttempts) {
+            str = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                str += characters[randomIndex];
+            }
+            if (option.excludeStrings === undefined || option.excludeStrings.includes(str) === false) {
+                break;
+            }
+            attempts++;
+        }
+        if (attempts === maxAttempts) {
+            throw new Error("文字列生成でループ上限に達しました。");
+        }
+        return str;
+    }
     static isUUID(value) {
         if (typeof value !== 'string') {
             return false;
