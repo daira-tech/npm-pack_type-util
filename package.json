@@ -1,6 +1,6 @@
 {
   "name": "type-utils-n-daira",
-  "version": "1.0.21",
+  "version": "1.0.23",
   "description": "",
   "homepage": "https://github.com/n-daira/npm-pack_type-util#readme",
   "bugs": {
@@ -20,8 +20,5 @@
   "devDependencies": {
     "@types/node": "24.1.0",
     "typescript": "5.8.2"
-  },
-  "dependencies": {
-    "sharp": "0.34.3"
   }
 }
