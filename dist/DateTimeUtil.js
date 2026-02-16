@@ -131,5 +131,63 @@ class DateTimeUtil {
         const pattern = new RegExp('^(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$');
         return pattern.test(value);
     }
+    static format(inputDate, format) {
+        var _a, _b;
+        if (typeof inputDate === 'string') {
+            if (this.isErrorDateTime(inputDate) === true) {
+                return format;
+            }
+            inputDate = this.toDateFromString(inputDate);
+        }
+        else if (isNaN(inputDate.getTime())) {
+            return format;
+        }
+        // 曜日
+        const jpnDay = ['日', '月', '火', '水', '木', '金', '土'][inputDate.getDay()];
+        const engDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][inputDate.getDay()];
+        const engDayShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][inputDate.getDay()];
+        format = format.replaceAll('jpnDay', jpnDay)
+            .replaceAll('JpnDay', jpnDay)
+            .replaceAll('dayShort', engDayShort)
+            .replaceAll('DayShort', engDayShort)
+            .replaceAll('Day', engDay)
+            .replaceAll('day', engDay);
+        // 年号
+        const eraParts = new Intl.DateTimeFormat('ja-JP-u-ca-japanese', { era: 'long', year: 'numeric' }).formatToParts(inputDate);
+        const jpnEra = ((_a = eraParts.find(p => p.type === 'era')) === null || _a === void 0 ? void 0 : _a.value) || '';
+        const jpnEraYear = ((_b = eraParts.find(p => p.type === 'year')) === null || _b === void 0 ? void 0 : _b.value) || '';
+        format = format.replaceAll('jpnEra', jpnEra + jpnEraYear + '年')
+            .replaceAll('JpnEra', jpnEra + jpnEraYear + '年');
+        const year = inputDate.getFullYear().toString();
+        format = format.replaceAll('yyyy', year.padStart(4, '0'))
+            .replaceAll('YYYY', year.padStart(4, '0'))
+            .replaceAll('YY', year.slice(-2));
+        const month = (inputDate.getMonth() + 1).toString();
+        format = format.replaceAll('MM', month.padStart(2, '0'))
+            .replaceAll('mm', month.padStart(2, '0'))
+            .replaceAll('m', month)
+            .replaceAll('M', month);
+        const day = inputDate.getDate().toString();
+        format = format.replaceAll('dd', day.padStart(2, '0'))
+            .replaceAll('DD', day.padStart(2, '0'))
+            .replaceAll('d', day)
+            .replaceAll('D', day);
+        const hour = inputDate.getHours().toString();
+        format = format.replaceAll('HH', hour.padStart(2, '0'))
+            .replaceAll('hh', hour.padStart(2, '0'))
+            .replaceAll('H', hour)
+            .replaceAll('h', hour);
+        const minute = inputDate.getMinutes().toString();
+        format = format.replaceAll('mi', minute.padStart(2, '0'))
+            .replaceAll('MI', minute.padStart(2, '0'))
+            .replaceAll('i', minute)
+            .replaceAll('I', minute);
+        const second = inputDate.getSeconds().toString();
+        format = format.replaceAll('ss', second.padStart(2, '0'))
+            .replaceAll('SS', second.padStart(2, '0'))
+            .replaceAll('s', second)
+            .replaceAll('S', second);
+        return format;
+    }
 }
 exports.DateTimeUtil = DateTimeUtil;
