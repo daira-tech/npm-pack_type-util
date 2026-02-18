@@ -1,6 +1,6 @@
 {
   "name": "type-utils-n-daira",
-  "version": "1.0.26",
+  "version": "1.0.29",
   "description": "",
   "homepage": "https://github.com/n-daira/npm-pack_type-util#readme",
   "bugs": {
@@ -14,11 +14,14 @@
   "author": "Sho Nakadaira",
   "type": "commonjs",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rm -rf dist/* && tsc"
   },
   "devDependencies": {
-    "@types/node": "24.1.0",
     "typescript": "5.8.2"
   }
 }

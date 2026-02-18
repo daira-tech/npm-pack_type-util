@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StringUtil = void 0;
 class StringUtil {
     static generateUUIDv7() {
-        const timestamp = BigInt(Date.now()) * BigInt(10000) + BigInt(process.hrtime.bigint() % BigInt(10000));
+        const timestamp = BigInt(Date.now()) * BigInt(10000) + BigInt(Math.floor(Math.random() * 10000));
         const timeHex = timestamp.toString(16).padStart(16, '0');
         let randomHex = '';
         for (let i = 0; i < 16; i++) {
