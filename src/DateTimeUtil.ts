@@ -173,6 +173,13 @@ export class DateTimeUtil {
         format = format.replaceAll('jpnEra', jpnEra + jpnEraYear + '年')
                        .replaceAll('JpnEra', jpnEra + jpnEraYear + '年');
 
+        // minuteを先に行わないと競合するので
+        const minute = inputDate.getMinutes().toString();
+        format = format.replaceAll('mi', minute.padStart(2, '0'))
+                        .replaceAll('MI', minute.padStart(2, '0'))
+                        .replaceAll('i', minute)
+                        .replaceAll('I', minute);
+
         const year = inputDate.getFullYear().toString();
         format = format.replaceAll('yyyy', year.padStart(4, '0'))
                        .replaceAll('YYYY', year.padStart(4, '0'))
@@ -195,12 +202,6 @@ export class DateTimeUtil {
                        .replaceAll('hh', hour.padStart(2, '0'))
                        .replaceAll('H', hour)
                        .replaceAll('h', hour);
-
-        const minute = inputDate.getMinutes().toString();
-        format = format.replaceAll('mi', minute.padStart(2, '0'))
-                       .replaceAll('MI', minute.padStart(2, '0'))
-                       .replaceAll('i', minute)
-                       .replaceAll('I', minute);
 
         const second = inputDate.getSeconds().toString();
         format = format.replaceAll('ss', second.padStart(2, '0'))
