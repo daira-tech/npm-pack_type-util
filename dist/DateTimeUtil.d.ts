@@ -55,4 +55,5 @@ export declare class DateTimeUtil {
      */
     static isHHMMSS(value: any): value is string;
     static format(inputDate: string | Date, format: string): string;
+    static formatFromMinuteTime(timeOrMinute: string | number, format: string, isExcludeZero: boolean): string;
 }

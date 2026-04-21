@@ -190,5 +190,34 @@ class DateTimeUtil {
             .replaceAll('S', second);
         return format;
     }
+    static formatFromMinuteTime(timeOrMinute, format, isExcludeZero) {
+        let minute = 0;
+        let hour = 0;
+        if (typeof timeOrMinute === "string") {
+            if (!this.isHHMM(timeOrMinute) && !this.isHHMMSS(timeOrMinute)) {
+                return format;
+            }
+            const [h, m] = timeOrMinute.split(':').map(v => Number(v));
+            hour = h;
+            minute = m;
+        }
+        else {
+            hour = Math.floor(timeOrMinute / 60);
+            minute = timeOrMinute % 60;
+        }
+        if (isExcludeZero === false || hour > 0) {
+            format = format.replaceAll('HH', String(hour).padStart(2, '0'))
+                .replaceAll('hh', String(hour).padStart(2, '0'))
+                .replaceAll('H', String(hour))
+                .replaceAll('h', String(hour));
+        }
+        if (isExcludeZero === false || minute > 0) {
+            format = format.replaceAll('mi', String(minute).padStart(2, '0'))
+                .replaceAll('MI', String(minute).padStart(2, '0'))
+                .replaceAll('i', String(minute))
+                .replaceAll('I', String(minute));
+        }
+        return format;
+    }
 }
 exports.DateTimeUtil = DateTimeUtil;
