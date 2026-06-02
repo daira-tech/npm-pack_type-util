@@ -11,10 +11,19 @@ export declare class DateTimeUtil {
      * 文字列からDateオブジェクトを生成します。
      * @param dateString A string representing the date and time (e.g., "2023-10-05 14:30:00")
      * 日付と時間を表す文字列（例: "2023-10-05 14:30:00"）
+     * @param offset Offset to add to each component (e.g., { hour: 9 } adds 9 hours)
+     * 各要素に加算するオフセット（例: { hour: 9 } で9時間加算）
      * @returns Date object
      * Dateオブジェクト
      */
-    static toDateFromString(dateString: string): Date;
+    static toDateFromString(dateString: string, offset?: {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+    }): Date;
     /**
      * Formats the specified date.
      * 指定された日付をフォーマットします。

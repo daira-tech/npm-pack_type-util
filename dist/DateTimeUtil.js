@@ -37,11 +37,13 @@ class DateTimeUtil {
      * 文字列からDateオブジェクトを生成します。
      * @param dateString A string representing the date and time (e.g., "2023-10-05 14:30:00")
      * 日付と時間を表す文字列（例: "2023-10-05 14:30:00"）
+     * @param offset Offset to add to each component (e.g., { hour: 9 } adds 9 hours)
+     * 各要素に加算するオフセット（例: { hour: 9 } で9時間加算）
      * @returns Date object
      * Dateオブジェクト
      */
-    static toDateFromString(dateString) {
-        var _a, _b, _c;
+    static toDateFromString(dateString, offset) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         const [datePart, timePart] = dateString.split(' ');
         const [year, month, day] = datePart.split('-').map(Number);
         let [hours, minutes, seconds] = [0, 0, 0];
@@ -51,7 +53,7 @@ class DateTimeUtil {
             minutes = (_b = parts[1]) !== null && _b !== void 0 ? _b : 0;
             seconds = (_c = parts[2]) !== null && _c !== void 0 ? _c : 0;
         }
-        return new Date(year, month - 1, day, hours, minutes, seconds);
+        return new Date(year + ((_d = offset === null || offset === void 0 ? void 0 : offset.year) !== null && _d !== void 0 ? _d : 0), month - 1 + ((_e = offset === null || offset === void 0 ? void 0 : offset.month) !== null && _e !== void 0 ? _e : 0), day + ((_f = offset === null || offset === void 0 ? void 0 : offset.day) !== null && _f !== void 0 ? _f : 0), hours + ((_g = offset === null || offset === void 0 ? void 0 : offset.hour) !== null && _g !== void 0 ? _g : 0), minutes + ((_h = offset === null || offset === void 0 ? void 0 : offset.minute) !== null && _h !== void 0 ? _h : 0), seconds + ((_j = offset === null || offset === void 0 ? void 0 : offset.second) !== null && _j !== void 0 ? _j : 0));
     }
     /**
      * Formats the specified date.
