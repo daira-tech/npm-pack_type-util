@@ -9,12 +9,16 @@ class DateTimeUtil {
      * @returns {boolean} - 値が有効な日付時間形式であるかどうか, Whether the value is a valid date-time format
      */
     static isErrorDateTime(value) {
+        var _a, _b, _c;
         try {
             const [datePart, timePart] = value.split(' ');
             const [year, month, day] = datePart.split('-').map(Number);
             let [hour, minute, sec] = [0, 0, 0];
             if (timePart !== undefined) {
-                [hour, minute, sec] = timePart.split(':').map(Number);
+                const parts = timePart.split(':').map(Number);
+                hour = (_a = parts[0]) !== null && _a !== void 0 ? _a : 0;
+                minute = (_b = parts[1]) !== null && _b !== void 0 ? _b : 0;
+                sec = (_c = parts[2]) !== null && _c !== void 0 ? _c : 0;
             }
             const date = new Date(year, month - 1, day, hour, minute, sec);
             return year !== date.getFullYear() ||
@@ -37,11 +41,15 @@ class DateTimeUtil {
      * Dateオブジェクト
      */
     static toDateFromString(dateString) {
+        var _a, _b, _c;
         const [datePart, timePart] = dateString.split(' ');
         const [year, month, day] = datePart.split('-').map(Number);
         let [hours, minutes, seconds] = [0, 0, 0];
         if (timePart !== undefined) {
-            [hours, minutes, seconds] = timePart.split(':').map(Number);
+            const parts = timePart.split(':').map(Number);
+            hours = (_a = parts[0]) !== null && _a !== void 0 ? _a : 0;
+            minutes = (_b = parts[1]) !== null && _b !== void 0 ? _b : 0;
+            seconds = (_c = parts[2]) !== null && _c !== void 0 ? _c : 0;
         }
         return new Date(year, month - 1, day, hours, minutes, seconds);
     }

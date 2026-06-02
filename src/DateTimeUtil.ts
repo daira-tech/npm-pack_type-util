@@ -12,7 +12,10 @@ export class DateTimeUtil {
             const [year, month, day] = datePart.split('-').map(Number);
             let [hour, minute, sec] = [0, 0, 0];
             if (timePart !== undefined) {
-                [hour, minute, sec] = timePart.split(':').map(Number);
+                const parts = timePart.split(':').map(Number);
+                hour = parts[0] ?? 0;
+                minute = parts[1] ?? 0;
+                sec = parts[2] ?? 0;
             }
             
             const date = new Date(year, month - 1, day, hour, minute, sec);
@@ -40,7 +43,10 @@ export class DateTimeUtil {
         const [year, month, day] = datePart.split('-').map(Number);
         let [hours, minutes, seconds] = [0, 0, 0];
         if (timePart !== undefined) {
-            [hours, minutes, seconds] = timePart.split(':').map(Number);
+            const parts = timePart.split(':').map(Number);
+            hours = parts[0] ?? 0;
+            minutes = parts[1] ?? 0;
+            seconds = parts[2] ?? 0;
         }
         return new Date(year, month - 1, day, hours, minutes, seconds);
     }
